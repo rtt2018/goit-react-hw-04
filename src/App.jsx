@@ -6,7 +6,7 @@ function App() {
 
   return (
     <>
-      <p>Something {import.meta.env.VITE_REACT_APP_UNSPLASH_API_KEY}</p>
+      <p>Something else</p>
     </>
   )
 };
