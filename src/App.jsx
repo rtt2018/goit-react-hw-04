@@ -38,7 +38,6 @@ function App() {
     }
 
     async function getResponseData(additionalParams = {}) {
-      console.log("🚀 ~ useEffect ~ pageNumber:", pageNumber)
       try {
         setLoaderIsVisible(true);
         const { data } = await axios.get('https://api.unsplash.com/search/photos', {
@@ -47,7 +46,6 @@ function App() {
           },
           params: { ...requestParams, ...additionalParams },
         });
-        console.log("🚀 ~ useEffect ~ data:", data);
 
         if (data.total_pages > pageNumber) {
           setLoadMoreIsVisible(true);
@@ -68,8 +66,6 @@ function App() {
 
   }, [requestPhrase, pageNumber]);
 
-
-
   const onSubmit = (inputPhrase) => {
     setPageNumber(() => 1);
     setRequestPhrase(inputPhrase);
@@ -78,7 +74,6 @@ function App() {
   const loadMore = () => {
     setPageNumber(prevPageNum => prevPageNum + 1)
   }
-
 
   return (
     <>
