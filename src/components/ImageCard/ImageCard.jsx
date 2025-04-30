@@ -1,9 +1,9 @@
 import styles from './ImageCard.module.css';
 
-export default function ImageCard({ img }) {
+export default function ImageCard({ imgData }) {
   return (
     <div className={styles.container}>
-      <img src={img} alt="" />
+      <img src={imgData.urls.small} alt={imgData.alt_description} />
     </div>
   );
 }
