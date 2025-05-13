@@ -1,3 +1,13 @@
 .container {
   /* styles for ImageCard */
+  width: 388px;
+  height: 250px;
+  overflow: hidden;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease-in;
+}
+
+.container:hover {
+  transform: scale(1.05);
 }

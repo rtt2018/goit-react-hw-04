@@ -1,11 +1,10 @@
 import SearchBar from './components/SearchBar/SearchBar';
 import ImageGallery from './components/ImageGallery/ImageGallery';
-import Loader from './components/Loader/Loader';
+import { PuffLoader } from "react-spinners";
 import ErrorMessage from './components/ErrorMessage/ErrorMessage';
 import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
-import ImageModal from './components/ImageModal/ImageModal';
+import getUnsplashData from './api';
 import { useState, useEffect } from 'react'
-import axios from "axios";
 import './App.css'
 
 
@@ -17,7 +16,6 @@ function App() {
   const [loadMoreIsVisible, setLoadMoreIsVisible] = useState(false);
   const [error, setError] = useState(false);
   const [pageNumber, setPageNumber] = useState(1);
-  const per_page = 20;
 
   useEffect(() => {
     if (requestPhrase !== '') {
@@ -27,26 +25,16 @@ function App() {
   }, [requestPhrase]);
 
   useEffect(() => {
-    const myApiKey = import.meta.env.VITE_REACT_APP_UNSPLASH_API_KEY;
+    async function getData() {
+      if (requestPhrase === '') {
+        return
+      }
 
-    const requestParams = {
-      query: requestPhrase,
-      orientation: "landscape",
-      page: pageNumber,
-      per_page: per_page,
-      content_filter: 'high',
-    }
-
-    async function getResponseData(additionalParams = {}) {
       try {
         setLoaderIsVisible(true);
-        const { data } = await axios.get('https://api.unsplash.com/search/photos', {
-          headers: {
-            Authorization: `Client-ID ${myApiKey}`,
-          },
-          params: { ...requestParams, ...additionalParams },
-        });
+        setLoadMoreIsVisible(false);
 
+        const data = await getUnsplashData({ query: requestPhrase, page: pageNumber });
         if (data.total_pages > pageNumber) {
           setLoadMoreIsVisible(true);
         } else {
@@ -59,12 +47,9 @@ function App() {
         setLoaderIsVisible(false);
       }
     }
-
-    if (requestPhrase !== '') {
-      getResponseData();
-    }
-
+    getData();
   }, [requestPhrase, pageNumber]);
+
 
   const onSubmit = (inputPhrase) => {
     setPageNumber(() => 1);
@@ -79,10 +64,13 @@ function App() {
     <>
       <SearchBar getRequestPhrase={onSubmit} />
       {galleryItem.length > 0 && <ImageGallery imagesData={galleryItem} />}
-      {loaderIsVisible && <Loader />}
+      {loaderIsVisible && <PuffLoader
+        color="#1561f4"
+        cssOverride={{}}
+        className='loader'
+      />}
       {error && <ErrorMessage />}
       {loadMoreIsVisible && <LoadMoreBtn onLoadMore={loadMore} />}
-      <ImageModal />
     </>
   )
 };

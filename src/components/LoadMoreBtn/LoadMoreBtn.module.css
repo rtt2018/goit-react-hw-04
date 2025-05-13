@@ -1,3 +1,30 @@
 .container {
   /* styles for LoadMoreBtn */
 }
+
+.LoadMoreBtn {
+  height: 40px;
+  background-color: rgb(78, 117, 255);
+  font-family: Montserrat, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: 0.04em;
+  color: rgb(255, 255, 255);
+  border-radius: 8px;
+  padding: 8px 16px;
+  border-width: initial;
+  border-style: none;
+  border-color: initial;
+  border-image: initial;
+  margin-bottom: 32px;
+}
+
+.LoadMoreBtn:hover {
+  background-color: #6c8cff;
+}
+
+.LoadMoreBtn:focus,
+.LoadMoreBtn:focus-visible {
+  outline: 1px auto rgb(231, 187, 187);
+}
