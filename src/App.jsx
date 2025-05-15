@@ -4,7 +4,8 @@ import { PuffLoader } from "react-spinners";
 import ErrorMessage from './components/ErrorMessage/ErrorMessage';
 import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
 import getUnsplashData from './api';
-import ImgModal from './components/ImgModal/ImgModal';
+import ImageModal from './components/ImageModal/ImageModal';
+import toast from 'react-hot-toast';
 import { useState, useEffect } from 'react'
 import './App.css'
 
@@ -24,7 +25,7 @@ function App() {
   useEffect(() => {
     if (requestPhrase !== '') {
       setGalleryItem([]);
-      setPageNumber(() => 1);
+      setPageNumber(1);
     }
   }, [requestPhrase]);
 
@@ -36,6 +37,12 @@ function App() {
   const closeModal = () => {
     setModalVisible(false)
   }
+
+  useEffect(() => {
+    if (error) {
+      toast.error("Something not work. Please, try again!")
+    }
+  }, [error]);
 
   useEffect(() => {
     async function getData() {
@@ -65,8 +72,10 @@ function App() {
 
 
   const onSubmit = (inputPhrase) => {
-    setPageNumber(() => 1);
+    setPageNumber(1);
     setRequestPhrase(inputPhrase);
+    setError(false);
+    setGalleryItem([]);
   }
 
   const loadMore = () => {
@@ -84,7 +93,7 @@ function App() {
       />}
       {error && <ErrorMessage />}
       {loadMoreIsVisible && <LoadMoreBtn onLoadMore={loadMore} />}
-      {modalVisible && <ImgModal
+      {modalVisible && <ImageModal
         isOpen={modalVisible}
         onClose={closeModal}
         currentImg={currentShowImg}

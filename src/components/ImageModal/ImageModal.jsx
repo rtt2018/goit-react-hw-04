@@ -1,4 +1,4 @@
-import styles from './ImgModal.module.css';
+import styles from './ImageModal.module.css';
 import Modal from 'react-modal'
 import { SlClose } from "react-icons/sl";
 import { IoInformationCircleOutline } from "react-icons/io5";

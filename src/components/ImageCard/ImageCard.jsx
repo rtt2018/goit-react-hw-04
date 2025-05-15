@@ -6,8 +6,8 @@ export default function ImageCard({ imgData, showModal }) {
     showModal(imgData);
   }
   return (
-    <div onClick={handleOpenModal} className={styles.container}>
-      <img src={imgData.urls.small} alt={imgData.alt_description} />
+    <div className={styles.container}>
+      <img onClick={handleOpenModal} src={imgData.urls.small} alt={imgData.alt_description} />
     </div>
   );
 }
