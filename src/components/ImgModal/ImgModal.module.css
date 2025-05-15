@@ -23,6 +23,9 @@
 }
 
 .closeButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   right: -50px;
   top: -50px;
