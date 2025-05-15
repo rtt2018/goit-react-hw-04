@@ -4,9 +4,11 @@ import { PuffLoader } from "react-spinners";
 import ErrorMessage from './components/ErrorMessage/ErrorMessage';
 import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
 import getUnsplashData from './api';
+import ImgModal from './components/ImgModal/ImgModal';
 import { useState, useEffect } from 'react'
 import './App.css'
 
+// Modal.setAppElement("#root");
 
 function App() {
 
@@ -16,6 +18,8 @@ function App() {
   const [loadMoreIsVisible, setLoadMoreIsVisible] = useState(false);
   const [error, setError] = useState(false);
   const [pageNumber, setPageNumber] = useState(1);
+  const [modalVisible, setModalVisible] = useState(false)
+  const [currentShowImg, setCurrentShowImg] = useState(null);
 
   useEffect(() => {
     if (requestPhrase !== '') {
@@ -23,6 +27,15 @@ function App() {
       setPageNumber(() => 1);
     }
   }, [requestPhrase]);
+
+  const showModal = (imgId) => {
+    setCurrentShowImg(imgId)
+    setModalVisible(true)
+  }
+
+  const closeModal = () => {
+    setModalVisible(false)
+  }
 
   useEffect(() => {
     async function getData() {
@@ -63,7 +76,7 @@ function App() {
   return (
     <>
       <SearchBar getRequestPhrase={onSubmit} />
-      {galleryItem.length > 0 && <ImageGallery imagesData={galleryItem} />}
+      {galleryItem.length > 0 && <ImageGallery imagesData={galleryItem} showModal={showModal} />}
       {loaderIsVisible && <PuffLoader
         color="#1561f4"
         cssOverride={{}}
@@ -71,6 +84,11 @@ function App() {
       />}
       {error && <ErrorMessage />}
       {loadMoreIsVisible && <LoadMoreBtn onLoadMore={loadMore} />}
+      {modalVisible && <ImgModal
+        isOpen={modalVisible}
+        onClose={closeModal}
+        currentImg={currentShowImg}
+      />}
     </>
   )
 };
