@@ -7,7 +7,6 @@ Modal.setAppElement("#root");
 
 
 export default function ImgModal({ onClose, currentImg, isOpen }) {
-  console.log("🚀 ~ ImgModal ~ currentImg:", currentImg)
   return (
     <Modal
       isOpen={isOpen}
