@@ -5,7 +5,7 @@ import ErrorMessage from './components/ErrorMessage/ErrorMessage';
 import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
 import getUnsplashData from './api';
 import ImageModal from './components/ImageModal/ImageModal';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import { useState, useEffect } from 'react'
 import './App.css'
 
@@ -47,6 +47,7 @@ function App() {
   useEffect(() => {
     async function getData() {
       if (requestPhrase === '') {
+        toast.error("Enter something so that the mentor does not send homework for rework! )))", { duration: 1000 })
         return
       }
 
@@ -72,6 +73,9 @@ function App() {
 
 
   const onSubmit = (inputPhrase) => {
+    if (inputPhrase === '') {
+      toast.error("Please, enter something!", { duration: 2000 })
+    }
     setPageNumber(1);
     setRequestPhrase(inputPhrase);
     setError(false);
@@ -84,6 +88,9 @@ function App() {
 
   return (
     <>
+      <Toaster
+        position="top-center"
+        reverseOrder={false} />
       <SearchBar getRequestPhrase={onSubmit} />
       {galleryItem.length > 0 && <ImageGallery imagesData={galleryItem} showModal={showModal} />}
       {loaderIsVisible && <PuffLoader
