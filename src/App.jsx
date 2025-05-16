@@ -47,7 +47,6 @@ function App() {
   useEffect(() => {
     async function getData() {
       if (requestPhrase === '') {
-        toast.error("Enter something so that the mentor does not send homework for rework! )))", { duration: 1000 })
         return
       }
 
