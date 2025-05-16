@@ -5,7 +5,6 @@ import ErrorMessage from './components/ErrorMessage/ErrorMessage';
 import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
 import getUnsplashData from './api';
 import ImageModal from './components/ImageModal/ImageModal';
-import toast, { Toaster } from 'react-hot-toast';
 import { useState, useEffect } from 'react'
 import './App.css'
 
@@ -21,6 +20,7 @@ function App() {
   const [pageNumber, setPageNumber] = useState(1);
   const [modalVisible, setModalVisible] = useState(false)
   const [currentShowImg, setCurrentShowImg] = useState(null);
+  const [zeroRezult, setZeroResult] = useState(false);
 
   const showModal = (imgId) => {
     setCurrentShowImg(imgId)
@@ -49,6 +49,9 @@ function App() {
         } else {
           setLoadMoreIsVisible(false);
         }
+        if (data.results.length === 0) {
+          setZeroResult(true)
+        }
         setGalleryItem((prevImages) => [...prevImages, ...data.results]);
       } catch {
         setError(true);
@@ -61,9 +64,7 @@ function App() {
 
 
   const onSubmit = (inputPhrase) => {
-    if (inputPhrase === '') {
-      toast.error("Please, enter something!", { duration: 2000 })
-    }
+    setZeroResult(false)
     setPageNumber(1);
     setRequestPhrase(inputPhrase);
     setError(false);
@@ -77,11 +78,9 @@ function App() {
 
   return (
     <>
-      <Toaster
-        position="top-center"
-        reverseOrder={false} />
       <SearchBar getRequestPhrase={onSubmit} />
       {galleryItem.length > 0 && <ImageGallery imagesData={galleryItem} showModal={showModal} />}
+      {zeroRezult && <p>За вашим запитом не знайдено зображень. Спробуйте іншу пошукову разу!</p>}
       {loaderIsVisible && <PuffLoader
         color="#1561f4"
         cssOverride={{}}

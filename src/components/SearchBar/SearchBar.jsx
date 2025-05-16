@@ -1,18 +1,25 @@
 import styles from './SearchBar.module.css';
 import { FcSearch } from "react-icons/fc";
-
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function SearchBar({ getRequestPhrase }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const searchphrase = event.target.elements.searchField.value;
-    getRequestPhrase(searchphrase.trim())
+    if (searchphrase === '') {
+      toast.error("Please, enter something!", { duration: 1000 })
+    } else {
+      getRequestPhrase(searchphrase.trim())
+    }
     event.target.reset();
   }
 
   return (
     <>
+      <Toaster
+        position="top-center"
+      />
       <header className={styles.container}>
         <form onSubmit={handleSubmit} className={styles.searchForm}>
           <input
