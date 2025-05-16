@@ -7,7 +7,7 @@ export default function SearchBar({ getRequestPhrase }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const searchphrase = event.target.elements.searchField.value;
-    getRequestPhrase(searchphrase)
+    getRequestPhrase(searchphrase.trim())
     event.target.reset();
   }
 
