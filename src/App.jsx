@@ -22,13 +22,6 @@ function App() {
   const [modalVisible, setModalVisible] = useState(false)
   const [currentShowImg, setCurrentShowImg] = useState(null);
 
-  useEffect(() => {
-    if (requestPhrase !== '') {
-      setGalleryItem([]);
-      setPageNumber(1);
-    }
-  }, [requestPhrase]);
-
   const showModal = (imgId) => {
     setCurrentShowImg(imgId)
     setModalVisible(true)
@@ -39,18 +32,14 @@ function App() {
   }
 
   useEffect(() => {
-    if (error) {
-      toast.error("Something not work. Please, try again!")
-    }
-  }, [error]);
-
-  useEffect(() => {
     async function getData() {
       if (requestPhrase === '') {
         return
       }
 
       try {
+        setGalleryItem([]);
+        setPageNumber(1);
         setLoaderIsVisible(true);
         setLoadMoreIsVisible(false);
 
@@ -79,6 +68,7 @@ function App() {
     setRequestPhrase(inputPhrase);
     setError(false);
     setGalleryItem([]);
+    setLoadMoreIsVisible(false)
   }
 
   const loadMore = () => {
