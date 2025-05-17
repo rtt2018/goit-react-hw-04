@@ -38,8 +38,6 @@ function App() {
       }
 
       try {
-        setGalleryItem([]);
-        setPageNumber(1);
         setLoaderIsVisible(true);
         setLoadMoreIsVisible(false);
 
