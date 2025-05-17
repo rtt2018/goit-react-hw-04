@@ -6,11 +6,11 @@ export default function SearchBar({ getRequestPhrase }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const searchphrase = event.target.elements.searchField.value;
+    const searchphrase = event.target.elements.searchField.value.trim();
     if (searchphrase === '') {
       toast.error("Please, enter something!", { duration: 1000 })
     } else {
-      getRequestPhrase(searchphrase.trim())
+      getRequestPhrase(searchphrase)
     }
     event.target.reset();
   }
