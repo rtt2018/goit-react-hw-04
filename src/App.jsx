@@ -80,7 +80,7 @@ function App() {
     <>
       <SearchBar getRequestPhrase={onSubmit} />
       {galleryItem.length > 0 && <ImageGallery imagesData={galleryItem} showModal={showModal} />}
-      {zeroRezult && <p>За вашим запитом не знайдено зображень. Спробуйте іншу пошукову разу!</p>}
+      {zeroRezult && <p>За вашим запитом не знайдено зображень. Спробуйте іншу пошукову фразу!</p>}
       {loaderIsVisible && <PuffLoader
         color="#1561f4"
         cssOverride={{}}
