@@ -8,7 +8,7 @@ export default function SearchBar({ getRequestPhrase }) {
     event.preventDefault();
     const searchphrase = event.target.elements.searchField.value.trim();
     if (searchphrase === '') {
-      toast.error("Please, enter something!", { duration: 1000 })
+      toast.error("Please, enter something!", { duration: 2000 })
     } else {
       getRequestPhrase(searchphrase)
     }
@@ -18,7 +18,12 @@ export default function SearchBar({ getRequestPhrase }) {
   return (
     <>
       <Toaster
-        position="top-center"
+        toastOptions={{
+          error: {
+            duration: 2000,
+          }
+        }}
+        position="top-right"
       />
       <header className={styles.container}>
         <form onSubmit={handleSubmit} className={styles.searchForm}>
